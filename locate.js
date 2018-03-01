@@ -1,8 +1,26 @@
+var watchID = null;
 window.onload = getMyLocation;
+
+function watchLocation() {
+  watchId = navigator.geolocation.watchPosition(displayLocation, displayError);
+}
+
+function clearWatch() {
+  if (watchId != null) {
+    navigator.geolocation.clearWatch(watchId);
+    watchId = null;
+  }
+}
 
 function getMyLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(displayLocation, displayError);
+    // Commenting this out as now we will build functionality to watch users location.
+    // navigator.geolocation.getCurrentPosition(displayLocation, displayError);
+    
+    var watchButton = document.getElementById("watch");
+    watchButton.onclick = watchLocation;
+    var clearWatchButton = document.getElementById("clearWatch");
+    clearWatchButton.onclick = clearWatch;
   } else {
     alert("Geolocation not supported in your browser");
   }
@@ -21,7 +39,10 @@ function displayLocation(position) {
   var distance = document.getElementById('distance');
   distance.innerHTML = "You are " + km + " km from the authors location.";
   console.log(position.coords, "<-position.coords");
-  showMap(position.coords);
+  
+  if (map == null) {    
+    showMap(position.coords);
+  }
 }
 
 function displayError(error) {

@@ -3,7 +3,7 @@
 <!-- Special thanks to Head First HTML5 for this tutorial. -->
 <head>
   <meta charset="utf-8">
-  <title>Geolocation Practice</title>
+  <title>Wherever you go, there you are.</title>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCotNK6CbR_UOFNwsaQRletBxq8CWLQ878"></script>
   <script src="locate.js"></script>
   <style>
@@ -15,7 +15,12 @@
 </head>
 
 <body>
-  <div id="location">Your location here</div>
+  <form>
+    <input type="button" id="watch" value="Watch Me">
+    <input type="button" id="clearWatch" value="Clear Me">
+  <div id="location">
+    Your location here
+  </div>
   <div id="distance">
     Distance from WickedlySmart HQ will go here.
   </div>
