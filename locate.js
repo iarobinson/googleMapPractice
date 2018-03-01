@@ -50,6 +50,9 @@ function displayLocation(position) {
   
   if (map == null) {    
     showMap(position.coords);
+  } else {
+    // This updates the app to leave a marker each time position changes
+    scrollMapToPosition(position.coords);
   }
 }
 
@@ -139,4 +142,15 @@ function addMarker(map, latlong, title, content) {
   google.maps.event.addListener(marker, "click", function() {
     infoWindow.open(map);
   });
+}
+
+function scrollMapToPosition(coords) {
+  var latitude = coords.latitude;
+  var longitude = coords. longitude;
+  var latlong = new google.maps.LatLng(latitude, longitude);
+  
+  map.panTo(latlong);
+  
+  addMarker(map, latlong, "Your new location", 
+    "You moved to: " + latitude + ", " + longitude);
 }
