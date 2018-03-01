@@ -68,7 +68,8 @@ var ourCoords = {
 var map;
 
 function showMap(coords) {
-  var googleLatAndLong = new google.maps.LatLng(coords.latitude, coords.longitude);
+  var googleLatAndLong = 
+    new google.maps.LatLng(coords.latitude, coords.longitude);
   
   var mapOptions = {
     zoom: 10,
@@ -76,6 +77,6 @@ function showMap(coords) {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   
-  var mapDiv = document.getElementById('map');
+  var mapDiv = document.getElementById("map");
   map = new google.maps.Map(mapDiv, mapOptions);
 }
