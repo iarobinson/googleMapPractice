@@ -18,7 +18,7 @@ function displayLocation(position) {
   var km = computeDistance(position.coords, ourCoords);
   var distance = document.getElementById('distance');
   distance.innerHTML = "You are " + km + " km from the authors location.";
-  
+  console.log(position.coords, "<-position.coords");
   showMap(position.coords);
 }
 
@@ -79,7 +79,7 @@ function showMap(coords) {
   map = new google.maps.Map(mapDiv, mapOptions);
   var title = "Your Location";
   var content = "You are here: " + coords.latitude + ", " + coords.longitude;
-  addMarker(map.googleLatAndLong, title, content);
+  addMarker(map, googleLatAndLong, title, content);
 }
 
 function addMarker(map, latlong, title, content) {
