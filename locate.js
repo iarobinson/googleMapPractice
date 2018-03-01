@@ -33,6 +33,8 @@ function getMyLocation() {
   }
 }
 
+var prevCoords = null;
+
 function displayLocation(position) {
   var lat = position.coords.latitude;
   var long = position.coords.longitude;
@@ -50,9 +52,14 @@ function displayLocation(position) {
   
   if (map == null) {    
     showMap(position.coords);
+    prevCoords = position.coords;
   } else {
     // This updates the app to leave a marker each time position changes
-    scrollMapToPosition(position.coords);
+    var meters = computeDistance(position.coords, prevCoords) * 1000;
+    if (meters > 20) {
+      scrollMapToPosition(position.coords);
+      prevCoords = position.coords;
+    }
   }
 }
 
