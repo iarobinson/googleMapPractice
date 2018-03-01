@@ -63,7 +63,7 @@ var ourCoords = {
   longitude: -122.52099
 };
 
-var googleLatAndLong = new google.maps.LatLng(latitude, longitude);
+// var googleLatAndLong = new google.maps.LatLng(latitude, longitude);
 
 var map;
 
