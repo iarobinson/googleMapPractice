@@ -11,9 +11,10 @@ function getMyLocation() {
 function displayLocation(position) {
   var lat = position.coords.latitude;
   var long = position.coords.longitude;
-  
   var div = document.getElementById('location');
+  
   div.innerHTML = "You are at " + lat + " and " + long + " longitude";
+  div.innerHTML += " (with " + position.coords.accuracy + " meters accuracy)";
   
   var km = computeDistance(position.coords, ourCoords);
   var distance = document.getElementById('distance');
