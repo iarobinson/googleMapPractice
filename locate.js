@@ -2,7 +2,9 @@ var watchID = null;
 window.onload = getMyLocation;
 
 function watchLocation() {
-  watchId = navigator.geolocation.watchPosition(displayLocation, displayError);
+  watchId = navigator.geolocation.watchPosition(
+    displayLocation, 
+    displayError);
 }
 
 function clearWatch() {
@@ -12,11 +14,16 @@ function clearWatch() {
   }
 }
 
+var options = { enableHighAccuracy: true, timeout: 100, maximumAge: 0 };
 function getMyLocation() {
   if (navigator.geolocation) {
     // Commenting this out as now we will build functionality to watch users location.
     // navigator.geolocation.getCurrentPosition(displayLocation, displayError);
-    
+    navigator.geolocation.getCurrentPosition(
+      displayLocation,
+      displayError,
+      options);
+
     var watchButton = document.getElementById("watch");
     watchButton.onclick = watchLocation;
     var clearWatchButton = document.getElementById("clearWatch");
@@ -31,14 +38,15 @@ function displayLocation(position) {
   var long = position.coords.longitude;
   var div = document.getElementById('location');
   var accuracy = document.getElementById("accuracy");
+  var loadTime = document.getElementById("loadTime");
   
   div.innerHTML = "You are at " + lat + " and " + long + " longitude";
   accuracy.innerHTML = " (with " + position.coords.accuracy + " meters accuracy)";
+  loadTime.innerHTML = "Found in " + options.timeout + " milliseconds";
   
   var km = computeDistance(position.coords, ourCoords);
   var distance = document.getElementById('distance');
   distance.innerHTML = "You are " + km + " km from the authors location.";
-  console.log(position.coords, "<-position.coords");
   
   if (map == null) {    
     showMap(position.coords);
@@ -60,6 +68,12 @@ function displayError(error) {
   
   var div = document.getElementById("location");
   div.innerHTML = errorMessage;
+  options.timeout += 100;
+  navigator.geolocation.getCurrentPosition(
+    displayLocation,
+    displayError,
+    options);
+  div.innerHTML += "... checking again with timeout =" + options.timeout;
 }
 
 function computeDistance(startCoords, destCoords) {
